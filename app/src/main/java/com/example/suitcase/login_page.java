@@ -21,7 +21,14 @@ public class login_page extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
         binding=ActivityLoginPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//       getSupportActionBar().hide();
+
+        if (getSupportActionBar()!=null){
+            getSupportActionBar().hide();
+
+
+        }
+
+
 
         dataBaseHelper= new DataBaseHelper(this);
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {

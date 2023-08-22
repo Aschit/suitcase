@@ -37,6 +37,7 @@ public class splash_screen extends AppCompatActivity {
 //        getSupportActionBar().hide();
 
 
+
          //splash method
 
         Thread thread= new Thread(new Runnable() {

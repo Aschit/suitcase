@@ -22,7 +22,11 @@ public class signup_page extends AppCompatActivity {
         binding=ActivitySignupPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         dataBaseHelper= new DataBaseHelper(this);
-//        getSupportActionBar().hide();
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().hide();
+        }
+
+
 
         // click for signup button
         binding.signupBtn.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +44,7 @@ public class signup_page extends AppCompatActivity {
                 }
                 else{
                     if(password.equals(cpassword)){
-                        boolean checkemail= dataBaseHelper.CheckEmail(email);
+                        boolean checkemail= dataBaseHelper.checkEmail(email);
                         if (checkemail==false){
                             boolean insert= dataBaseHelper.insertUsers(email,password);
                             if (insert==true){
