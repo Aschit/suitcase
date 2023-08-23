@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Suitcase"
         tools:targetApi="31">
         <activity
+            android:name=".Reset_Password"
+            android:exported="false" />
+        <activity
             android:name=".add_items"
             android:exported="false" />
         <activity
