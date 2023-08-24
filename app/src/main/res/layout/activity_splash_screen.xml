@@ -13,7 +13,7 @@
         android:id="@+id/logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/logo"
+        android:src="@drawable/logon"
         android:layout_marginBottom="26dp"
         />
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif"
-        android:text="Welcome to My Application Thank you !!!"
+        android:text="Welcome to Suitcase  !!!"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />

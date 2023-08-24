@@ -40,13 +40,27 @@ public class splash_screen extends AppCompatActivity {
 
          //splash method
 
+
+        // create a thread method to sleep a splash screen
+
+
         Thread thread= new Thread(new Runnable() {
+
             @Override
             public void run() {
+
+                // thread will sleep after 9 seconds
+
                 try {
                     sleep(9000);
+
+                    // After 9 seconds the thread will jump to the intent file which is login class.
+
                     Intent intent= new Intent(getApplicationContext(), login_page.class);
                     startActivity(intent);
+
+                    // catch is used to remove the activity
+
                 }catch (InterruptedException e){
                     e.printStackTrace();
 
@@ -54,6 +68,9 @@ public class splash_screen extends AppCompatActivity {
 
             }
         });
+
+        // start the thread
+
         thread.start();
 
     }
