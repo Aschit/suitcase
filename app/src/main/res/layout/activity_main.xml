@@ -25,7 +25,7 @@
             android:paddingEnd="15dp">
 
             <ImageView
-                android:id="@+id/imagemenu"
+                android:id="@+id/navmenu"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:contentDescription="@string/app_name"
@@ -103,7 +103,7 @@
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/nav"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:menu="@menu/menu"
