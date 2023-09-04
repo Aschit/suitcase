@@ -38,10 +38,24 @@ public class MainActivity extends AppCompatActivity {
                 if(id==R.id.item_home){
                     Intent intent= new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
-                    Toast.makeText(MainActivity.this, "Click to Home", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Click to Home item", Toast.LENGTH_SHORT).show();
                 }
                 if (id==R.id.item_about){
-                    Toast.makeText(MainActivity.this, "Click to About", Toast.LENGTH_SHORT).show();
+                    Intent intent= new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(intent);
+
+                    Toast.makeText(MainActivity.this, "Click to About item", Toast.LENGTH_SHORT).show();
+                }
+
+                if(id==R.id.item_contact){
+                    Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(MainActivity.this, "Click to Home item", Toast.LENGTH_SHORT).show();
+                }
+                if(id==R.id.item_profile){
+                    Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(MainActivity.this, "Click to Home item", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }

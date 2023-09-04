@@ -1,74 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#558B2F"
-    android:padding="10dp"
+    android:padding="20dp"
     tools:context=".items_details">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Items Details"
-
-        android:textSize="35dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        />
     <ImageView
-        android:id="@+id/img_details"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/logo"
-        />
-
-    <TextView
-        android:id="@+id/items_details"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:layout_marginTop="10dp"
-
-        android:text="Items name"/>
-
-    <TextView
-        android:id="@+id/items_price"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="25dp"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:text="1050"/>
-
-    <TextView
-        android:id="@+id/items_dis"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:layout_marginTop="10dp"
-
-        android:text="Nice product"/>
-
-    <Button
-        android:id="@+id/btn_share"
+        android:id="@+id/imageViewItem"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Share"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="72dp"
+        android:background="#eaeaea"
+        android:contentDescription="Item Image"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+    
+    <TextView
+        android:id="@+id/textviewname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:drawableLeft="@drawable/baseline_share_24"
+        android:paddingHorizontal="8dp"
+        android:text="Name"
+        android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="25dp"/>
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewItem" />
+
+    <TextView
+        android:id="@+id/textviewprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:foregroundGravity="bottom"
+        android:paddingHorizontal="8dp"
+        android:paddingBottom="8dp"
+        android:text="Rs. 100.00"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textviewname" />
+
+
+    <TextView
+        android:id="@+id/textviewdescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:lines="5"
+        android:paddingHorizontal="8dp"
+        android:paddingBottom="8dp"
+        android:text="This is description"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textviewprice" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textviewdescription"
+        android:layout_marginTop="16dp">
+        <Button
+            android:id="@+id/btnEditItem"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+
+            android:backgroundTint="#5544ff"
+            android:padding="10dp"
+            android:text="Edit"
+
+            />
+        <Button
+            android:id="@+id/btnShareItem"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:backgroundTint="#5544ff"
+            android:padding="10dp"
+            android:text="Share"
+            />
+
+    </LinearLayout>
 
 
 
@@ -76,4 +108,12 @@
 
 
 
-</LinearLayout>
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
