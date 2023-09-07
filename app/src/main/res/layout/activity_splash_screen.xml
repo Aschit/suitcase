@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E88E5"
+    android:background="@drawable/imgscreen"
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".splash_screen">
@@ -24,7 +24,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif"
         android:text="Welcome to Suitcase  !!!"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
 </LinearLayout>
