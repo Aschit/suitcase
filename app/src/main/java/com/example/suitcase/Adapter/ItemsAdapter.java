@@ -5,22 +5,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.suitcase.Item;
+import com.example.suitcase.ItemModel;
 import com.example.suitcase.R;
 
 import java.util.ArrayList;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
-    public  final RecyclerViewItemClickListener itemClickListener;
+    private  final RecyclerViewItemClickListener recyclerViewItemClickListener;
+    private ArrayList<ItemModel> itemModels;
 
-    private final ArrayList<Item> items;
-
-    public ItemsAdapter(ArrayList<Item> items, RecyclerViewItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-        this.items = items;
+    public ItemsAdapter(RecyclerViewItemClickListener recyclerViewItemClickListener) {
+        this.recyclerViewItemClickListener = recyclerViewItemClickListener;
+        this.itemModels=itemModels;
 
     }
-
 
 
     @NonNull
@@ -35,7 +33,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     @Override
     public void onBindViewHolder(@NonNull ItemsAdapter.ItemViewHolder holder, int position) {
 
-        Item item= items.get(position);
+
+        ItemModel item= itemModels.get(position);
 
 
 
@@ -48,6 +47,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         public ItemViewHolder(@NonNull View itemView) {
+
             super(itemView);
         }
     }
