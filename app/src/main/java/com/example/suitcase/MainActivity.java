@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +13,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.suitcase.Adapter.ItemsAdapter;
+import com.example.suitcase.Adapter.RecyclerViewItemClickListener;
 import com.example.suitcase.databinding.ActivityMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import java.sql.Array;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    FloatingActionButton fab;
+    private ArrayList<ItemModel>itemModels;
+    private DataBaseHelper dataBaseHelper;
+    private RecyclerView itemRecyclerview;
+    private ItemsAdapter itemsAdapter;
+    private NavigationView navigationView;
+
 
 
 
@@ -30,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        // Top Navigation View
         binding.nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -64,9 +80,25 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.navmenu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
+
+        // initialize the data
+        itemModels= new ArrayList<>();
+        dataBaseHelper= new DataBaseHelper(this);
+
+
+        // item touch helper setup
+        setupItemTouchHelper();
+
+        // initialize
+        fab= findViewById(R.id.fab);
+
+
+
+
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void setupItemTouchHelper() {
 
     }
 }
