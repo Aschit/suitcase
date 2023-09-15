@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.example.suitcase.Adapter.ItemsAdapter;
@@ -27,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     FloatingActionButton fab;
     private ArrayList<ItemModel>itemModels;
-    private DataBaseHelper dataBaseHelper;
-    private RecyclerView itemRecyclerview;
-    private ItemsAdapter itemsAdapter;
+    private Items_Dbhelper items_dbhelper;
+    private RecyclerViewItemClickListener recyclerViewItemClickListener;
+    private Adapter adapter;
     private NavigationView navigationView;
 
 
@@ -85,16 +87,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // initialize the data
-        itemModels= new ArrayList<>();
-        dataBaseHelper= new DataBaseHelper(this);
-
-
-        // item touch helper setup
+        // initiaize the data
+        itemModels=new ArrayList<>();
+        items_dbhelper= new Items_Dbhelper(this);
+        setRecyclerView();
         setupItemTouchHelper();
-
-        // initialize
-        fab= findViewById(R.id.fab);
+        
+        
 
 
 
@@ -110,7 +109,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setRecyclerView() {
+    }
+
     private void setupItemTouchHelper() {
+        ItemTouchHelper itemTouchHelper=new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+                    
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        int position=viewHolder.getAdapterPosition();
+                        ItemModel itemModel=itemModels.get(position);
+                        if (direction==ItemTouchHelper.LEFT){
+                            items_dbhelper.delete(itemModel.getId());
+                            itemModels.remove(position);
+                            
+                            //adapter
+                            Toast.makeText(MainActivity.this, "Item Deleted", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }
+
+
+        );
 
     }
 }

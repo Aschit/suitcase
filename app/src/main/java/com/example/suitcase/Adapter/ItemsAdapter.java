@@ -66,7 +66,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
             super(itemView);
             imageView = itemView.findViewById(R.id.item_image);
             textViewName = itemView.findViewById(R.id.item_name);
-            textViewPrice = itemView.findViewById(R.id.item_price);
+             textViewPrice = itemView.findViewById(R.id.item_price);
             textViewDescription = itemView.findViewById(R.id.item_description);
 
             itemView.setOnClickListener(this::itemViewOnClick);
