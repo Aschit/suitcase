@@ -16,11 +16,13 @@ import com.example.suitcase.databinding.ActivityAddItemsBinding;
 public class add_items extends AppCompatActivity {
     ActivityAddItemsBinding binding;
     Items_Dbhelper items_dbhelper;
+    private ImageView imageView;
 
     private Uri imageUri;
 
     public static Intent getIntent(Context context) {
         return new Intent(context, add_items.class);
+
     }
 
 
@@ -75,5 +77,13 @@ public class add_items extends AppCompatActivity {
 
     private void pickImage(View view) {
         ImagePickUtility.pickImage(view, add_items.this);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (data != null) {
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

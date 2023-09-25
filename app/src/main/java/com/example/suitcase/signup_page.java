@@ -11,7 +11,7 @@ import com.example.suitcase.databinding.ActivitySignupPageBinding;
 
 public class signup_page extends AppCompatActivity {
     ActivitySignupPageBinding binding;
-    DataBaseHelper dataBaseHelper;
+    DatabaseHelper dataBaseHelper;
 
 
 
@@ -21,7 +21,7 @@ public class signup_page extends AppCompatActivity {
         setContentView(R.layout.activity_signup_page);
         binding=ActivitySignupPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        dataBaseHelper= new DataBaseHelper(this);
+        dataBaseHelper= new DatabaseHelper(this);
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }

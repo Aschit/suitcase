@@ -9,14 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.suitcase.ItemModel;
+import com.example.suitcase.ItemsModel;
 import com.example.suitcase.R;
 
 import java.util.ArrayList;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
     private final RecyclerViewItemClickListener recyclerViewItemClickListener;
-    private ArrayList<ItemModel> itemModels;
+    private ArrayList<ItemsModel> itemModels;
 
     public ItemsAdapter(RecyclerViewItemClickListener recyclerViewItemClickListener) {
         this.recyclerViewItemClickListener = recyclerViewItemClickListener;
@@ -37,7 +37,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ItemsAdapter.ItemViewHolder holder, int position) {
-        ItemModel itemModel = itemModels.get(position);
+        ItemsModel itemModel = itemModels.get(position);
         holder.textViewName.setText(itemModel.getName());
         if (itemModel.isPurchased()) {
             holder.textViewName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_check_24, 0);

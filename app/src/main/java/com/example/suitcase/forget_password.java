@@ -12,7 +12,7 @@ import com.example.suitcase.databinding.ActivityForgetPasswordBinding;
 public class forget_password extends AppCompatActivity {
 
     ActivityForgetPasswordBinding binding;
-    DataBaseHelper dataBaseHelper;
+    DatabaseHelper dataBaseHelper;
 
 
     @Override
@@ -21,7 +21,7 @@ public class forget_password extends AppCompatActivity {
         setContentView(R.layout.activity_forget_password);
         binding=ActivityForgetPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        dataBaseHelper= new DataBaseHelper(this);
+        dataBaseHelper= new DatabaseHelper(this);
 
         binding.EmailButton.setOnClickListener(new View.OnClickListener() {
             @Override

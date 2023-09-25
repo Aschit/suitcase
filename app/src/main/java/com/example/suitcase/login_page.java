@@ -11,7 +11,7 @@ import com.example.suitcase.databinding.ActivityLoginPageBinding;
 
 public class login_page extends AppCompatActivity {
     ActivityLoginPageBinding binding;
-    DataBaseHelper dataBaseHelper;
+    DatabaseHelper dataBaseHelper;
 
 
 
@@ -30,7 +30,7 @@ public class login_page extends AppCompatActivity {
 
 
 
-        dataBaseHelper= new DataBaseHelper(this);
+        dataBaseHelper= new DatabaseHelper(this);
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +69,14 @@ public class login_page extends AppCompatActivity {
                 Intent intent= new Intent(getApplicationContext(), signup_page.class);
                 startActivity(intent);
 
+
+            }
+        });
+        binding.forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getApplicationContext(),forget_password.class);
+                startActivity(intent);
 
             }
         });

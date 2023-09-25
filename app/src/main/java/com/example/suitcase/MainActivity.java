@@ -5,139 +5,146 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.MenuItem;
+import com.example.suitcase.edit_item;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.example.suitcase.Adapter.ItemsAdapter;
+import com.example.suitcase.Adapter.RecyclerViewItemClickListener;
 import com.example.suitcase.Adapter.RecyclerViewItemClickListener;
 import com.example.suitcase.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     ActivityMainBinding binding;
     FloatingActionButton fab;
-    private ArrayList<ItemModel>itemModels;
-    private Items_Dbhelper items_dbhelper;
-    private RecyclerViewItemClickListener recyclerViewItemClickListener;
-    private Adapter adapter;
+    private Items_Dbhelper items_dbHelper;
+    private RecyclerViewItemClickListener recyclerItemsClickView;
+    private ItemsAdapter itemsAdapter;
     private NavigationView navigationView;
-
-
-
-
-
-
+    private ArrayList<ItemsModel> itemsModels;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
-        // Top Navigation View
+        //Nav Menu Item Click
         binding.nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                int id= item.getItemId();
-                if(id==R.id.item_home){
-                    Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+                int id=item.getItemId();
+                if (id==R.id.item_home){
+                    Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(intent);
-                    Toast.makeText(MainActivity.this, "Click to Home item", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Click to home ", Toast.LENGTH_SHORT).show();
                 }
                 if (id==R.id.item_about){
-                    Intent intent= new Intent(getApplicationContext(),MainActivity.class);
-                    startActivity(intent);
-
-                    Toast.makeText(MainActivity.this, "Click to About item", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Clickto about ", Toast.LENGTH_SHORT).show();
                 }
-
-                if(id==R.id.item_contact){
-                    Intent intent= new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(MainActivity.this, "Click to Home item", Toast.LENGTH_SHORT).show();
+                if (id==R.id.item_contact){
+                    Toast.makeText(MainActivity.this, "Click to contact", Toast.LENGTH_SHORT).show();
                 }
-                if(id==R.id.item_profile){
-                    Intent intent= new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(MainActivity.this, "Click to Home item", Toast.LENGTH_SHORT).show();
+                if (id==R.id.item_profile){
+                    Toast.makeText(MainActivity.this, "Click to profile", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
         });
         final DrawerLayout drawerLayout=findViewById(R.id.drawer);
-        findViewById(R.id.navmenu).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.nav).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
 
-        // initiaize the data
-        itemModels=new ArrayList<>();
-        items_dbhelper= new Items_Dbhelper(this);
+        //initialize data
+        itemsModels=new ArrayList<>();
+        items_dbHelper=new Items_Dbhelper(this);
         setRecyclerView();
         setupItemTouchHelper();
-        
-        
-
-
-
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(getApplicationContext(), add_items.class);
-                startActivity(intent);
-            }
-        });
-
-
+        binding.fab.setOnClickListener(view->startActivity(add_items.getIntent(getApplicationContext())));
     }
-
-    private void setRecyclerView() {
-    }
-
-    private void setupItemTouchHelper() {
+    private void setupItemTouchHelper(){
         ItemTouchHelper itemTouchHelper=new ItemTouchHelper(
                 new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
                     @Override
                     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                         return false;
                     }
-                    
-
                     @Override
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         int position=viewHolder.getAdapterPosition();
-                        ItemModel itemModel=itemModels.get(position);
+                        ItemsModel itemsModel=itemsModels.get(position);
                         if (direction==ItemTouchHelper.LEFT){
-                            items_dbhelper.delete(itemModel.getId());
-                            itemModels.remove(position);
-                            
-                            //adapter
+                            items_dbHelper.delete(itemsModel.getId());
+                            itemsModels.remove(position);
+                            itemsAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                             Toast.makeText(MainActivity.this, "Item Deleted", Toast.LENGTH_SHORT).show();
+                        }else if(direction==ItemTouchHelper.RIGHT){
+                            itemsModel.setPurchased(true);
+                            items_dbHelper.update(
+                                    itemsModel.getId(),
+                                    itemsModel.getName(),
+                                    itemsModel.getPrice(),
+                                    itemsModel.getDescription(),
+                                    itemsModel.getImage().toString(),
+                                    itemsModel.isPurchased()
+                            );
+                            itemsAdapter.notifyItemChanged(position);
+                            Toast.makeText(MainActivity.this, "Item is Updated ", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 }
-
-
         );
+        itemTouchHelper.attachToRecyclerView(binding.recycler);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        retrieveData();
+    }
+    private void retrieveData(){
+        Cursor cursor=items_dbHelper.getAll();
+        if (cursor==null){
+            return;
+        }
+        itemsModels.clear();
+        while (cursor.moveToNext()){
+            ItemsModel itemsModel=new ItemsModel();
+            itemsModel.setId(cursor.getInt(0));
+            itemsModel.setName(cursor.getString(1));
+            itemsModel.setPrice(cursor.getDouble(2));
+            itemsModel.setDescription(cursor.getString(3));
+            itemsModel.setImage(Uri.parse(cursor.getString(4)));
+
+            itemsModels.add(cursor.getPosition(),itemsModel);
+            itemsAdapter.notifyItemChanged(cursor.getPosition());
+            Log.d("MainActivity","Items" +itemsModel.getId()+"added at "+cursor.getPosition());
+        }
+
+    }
+    private void setRecyclerView(){
+        itemsAdapter=new ItemsAdapter(itemsModels,
+                (view, position) -> startActivity(items_details.getIntent(
+                        getApplicationContext(),
+                        itemsModels.get(position).getId()
+
+        )));
+        binding.recycler.setLayoutManager(new LinearLayoutManager(this));
+        binding.recycler.setAdapter(itemsAdapter);
     }
 }
